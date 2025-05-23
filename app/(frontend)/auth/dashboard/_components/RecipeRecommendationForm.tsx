@@ -48,8 +48,8 @@ export default function RecipeRecommendationForm() {
                 })
                 //Todo: send data to backend for recipe recommendation 
             } catch (error) {
-
-            }
+                console.log(error)
+            }   
         })
     }
     return (
@@ -103,7 +103,7 @@ export default function RecipeRecommendationForm() {
                                                     <SelectLabel>Cuisine</SelectLabel>
                                                     {
                                                         cuisineValues.map((cuisine: string, index: number) => (
-                                                            <SelectItem value={cuisine}>
+                                                            <SelectItem key={index} value={cuisine}>
                                                                 {cuisine}
                                                             </SelectItem>
                                                         ))
@@ -133,7 +133,7 @@ export default function RecipeRecommendationForm() {
                                                     <SelectLabel>Diet</SelectLabel>
                                                     {
                                                         dietValues.map((diet: string, index: number) => (
-                                                            <SelectItem value={diet}>
+                                                            <SelectItem key={index} value={diet}>
                                                                 {diet}
                                                             </SelectItem>
                                                         ))
