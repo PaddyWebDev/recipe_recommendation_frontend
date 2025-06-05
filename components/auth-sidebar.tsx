@@ -31,13 +31,13 @@ export default function Sidebar({ userId, userName }: SidebarProps) {
   ]
 
   return (
-    <ShadCNSidebar variant="inset" collapsible="offcanvas" className="min-h-screen bg-white dark:bg-neutral-900 shadow-lg rounded-r-lg">
+    <ShadCNSidebar variant="inset" collapsible="offcanvas" className="min-h-screen bg-neutral-100 dark:bg-neutral-900 shadow-lg rounded-r-lg">
       <SidebarHeader className="border-b border-neutral-200 dark:border-neutral-700 px-4 py-3 ">
         <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Flavor Finder</h2>
       </SidebarHeader>
       <SidebarContent className="px-4 py-6 overflow-y-auto max-h-full">
         <SidebarGroup>
-          <nav className="flex flex-col space-y-3">
+          <nav className="flex flex-col space-y-3 bg-white">
             {links.map((link, id) => (
               <Link
                 key={id}
@@ -97,7 +97,7 @@ export default function Sidebar({ userId, userName }: SidebarProps) {
       </SidebarContent>
       <SidebarFooter>
 
-        <div className="flex items-center justify-between bg-slate-200 py-2 rounded-md ">
+        <div className="flex items-center justify-between bg-white py-2 rounded-md ">
           <Link className={cn(
             "px-3 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition-colors",
             pathname === "/auth/profile"

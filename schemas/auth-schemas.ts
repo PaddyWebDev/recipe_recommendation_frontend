@@ -117,7 +117,7 @@ export const recipeFormSchema = z.object({
   Ingredients: z
     .array(z.string().min(1, "Empty tag not allowed"))
     .min(1, "At least one tag is required"),
-  cookingTime: z
+  cooking_time: z
     .string()
     .regex(/^([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-9]{2}|300)$/, {
       message: "Enter a number between 1 and 300",

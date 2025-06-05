@@ -1,4 +1,4 @@
-import React, { useTransition } from 'react'
+import React, { useState, useTransition } from 'react'
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,6 +16,8 @@ import { recipeFormSchema, validateFields } from '@/schemas/auth-schemas';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import axios from 'axios';
+import Results, { ResultsProps } from './Results';
 
 
 export default function RecipeRecommendationForm() {
@@ -25,11 +27,13 @@ export default function RecipeRecommendationForm() {
     const [isPending, startTransition] = useTransition()
     type RecipeFormSchema = z.infer<typeof recipeFormSchema>;
 
+
+    const [data, setData] = useState<ResultsProps["results"]>([])
     const form = useForm<RecipeFormSchema>({
         resolver: zodResolver(recipeFormSchema),
         defaultValues: {
             Ingredients: [],
-            cookingTime: "",
+            cooking_time: "",
             cuisine: "",
             diet: ""
         },
@@ -40,14 +44,32 @@ export default function RecipeRecommendationForm() {
             try {
 
                 const validatedInput = validateFields(data, recipeFormSchema)
-                console.log("Submitted Ingredients:", validatedInput);
                 toast({
                     title: "Recipe Recommendation Form Submitted",
                 })
-                //Todo: send data to backend for recipe recommendation 
+
+                const payload = {
+                    course: "main", // if you're using a fixed value or add a new input
+                    ingredients: validatedInput.Ingredients.join(", "), // or " " if backend expects space-separated
+                    cooking_time: validatedInput.cooking_time,
+                    cuisine: validatedInput.cuisine,
+                    diet: validatedInput.diet
+                };
+
+                console.log(payload);
+
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_ML_MODEL_URL}/predict`, payload, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                });
+                setData(response.data.Success.prediction)
+
+                console.log(response);
             } catch (error) {
                 console.log(error)
-            }   
+            }
         })
     }
     return (
@@ -70,7 +92,7 @@ export default function RecipeRecommendationForm() {
 
                     <FormField
                         control={form.control}
-                        name="cookingTime"
+                        name="cooking_time"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>
@@ -149,6 +171,18 @@ export default function RecipeRecommendationForm() {
                     <Button type="submit">Submit</Button>
                 </form>
             </Form>
-        </div>
+
+
+            {
+                data.length > 0 && (
+
+
+                    <div>
+                        <Results results={data} />
+                    </div>
+
+                )
+            }
+            </div>
     )
 }
