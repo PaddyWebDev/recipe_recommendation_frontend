@@ -38,9 +38,7 @@ export default function RecipeRecommendationForm() {
     async function onSubmit(data: RecipeFormSchema): Promise<void> {
         startTransition(async function () {
             try {
-                setTimeout(() => {
-                    console.log("joe")
-                }, 25000);
+
                 const validatedInput = validateFields(data, recipeFormSchema)
                 console.log("Submitted Ingredients:", validatedInput);
                 toast({

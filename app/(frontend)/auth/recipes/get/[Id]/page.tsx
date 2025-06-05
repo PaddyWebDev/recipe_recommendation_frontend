@@ -28,7 +28,6 @@ export default function FetchRecipes({ params }: FetchRecipesProps) {
     enabled: !!params.Id, // avoid running query on undefined
 
   });
-  console.log(data)
 
   if (isLoading) {
     return (

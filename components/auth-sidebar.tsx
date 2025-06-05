@@ -21,6 +21,7 @@ type linksType = {
 }
 
 export default function Sidebar({ userId, userName }: SidebarProps) {
+
   const pathname = usePathname()
 
   const links: linksType[] = [
@@ -96,7 +97,7 @@ export default function Sidebar({ userId, userName }: SidebarProps) {
       </SidebarContent>
       <SidebarFooter>
 
-        <div className="flex items-center justify-between ">
+        <div className="flex items-center justify-between bg-slate-200 py-2 rounded-md ">
           <Link className={cn(
             "px-3 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition-colors",
             pathname === "/auth/profile"

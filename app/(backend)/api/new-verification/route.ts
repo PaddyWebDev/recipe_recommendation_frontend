@@ -6,9 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const { token } = await req.json();
-    console.log(token);
     const existingToken = await getVerificationTokenByToken(token);
-    console.log(existingToken);
     if (!existingToken) {
       return new NextResponse("Token is required", { status: 400 });
     }
@@ -35,7 +33,6 @@ export async function POST(req: NextRequest) {
 
     return new NextResponse("Success", { status: 200 });
   } catch (error) {
-    console.log(error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

@@ -7,7 +7,6 @@ export async function PATCH(req: NextRequest) {
         const { oldPassword, password } = await req.json();
 
         const userId = req.nextUrl.searchParams.get("userId")
-        console.log(userId)
 
         if (!userId ) {
             return new NextResponse("User id is required for updating user", {

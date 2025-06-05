@@ -49,7 +49,7 @@ export default function RecipeSearchPage() {
     startTransition(async () => {
       try {
         const validatedFields = validateFields(data, searchSchema)
-        const response = await axios.get(`/api/fetch-recipe?query=${validatedFields.query}`)
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/recipe/get?query=${validatedFields.query}`)
         setRecipeData(response.data.data)
       } catch (error: any) {
         form.setError("query", {
