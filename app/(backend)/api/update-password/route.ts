@@ -1,6 +1,7 @@
 import { getUserById } from "@/hooks/user-hooks";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import prisma from "@/lib/db";
 
 export async function PATCH(req: NextRequest) {
     try {

@@ -5,27 +5,31 @@ import { generateVerificationToken } from "@/lib/verification-token";
 import { sendVerificationEmail } from "@/hooks/mail-hooks";
 import db from "@/lib/db";
 
-
 export async function POST(request: NextRequest) {
   try {
-    const {
-      name,
-      email,
-      password,
-      phoneNumber,
-      gender
-    } = await request.json();
-    const hashPassword = await bcryptjs.hash(password, 10);
-    if (await getUserByEmail(email)) {
-      return new NextResponse("Email already in use", { status: 409 });
+    const { name, email, password, phoneNumber, gender } = await request.json();
+    const existingUser = await db.user.findFirst({
+      where: {
+        OR: [{ email }, { phoneNumber }],
+      },
+    });
+
+    if (existingUser) {
+      const field = existingUser.email === email ? "email" : "phoneNumber";
+      const message = `${
+        field === "email" ? "Email" : "Phone number"
+      } already in use`;
+
+      return NextResponse.json({ field, message }, { status: 409 });
     }
+    const hashPassword = await bcryptjs.hash(password, 10);
     await db?.user.create({
       data: {
         name,
         email,
         password: hashPassword,
         phoneNumber: phoneNumber,
-        gender
+        gender,
       },
     });
 

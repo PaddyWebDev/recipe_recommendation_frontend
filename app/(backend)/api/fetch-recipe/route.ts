@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/lib/db";
 
 export async function GET(request: NextRequest) {
     try {
@@ -33,6 +34,9 @@ export async function GET(request: NextRequest) {
         });
 
     } catch (error) {
+        console.log(
+            error
+        );
         return new NextResponse("Internal Server Error", {
             status: 500
         })

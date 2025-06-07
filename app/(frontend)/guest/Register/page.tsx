@@ -64,9 +64,26 @@ export default function RegisterForm() {
                     form.reset();
                 }).catch((error: any) => {
                     console.log(error);
+                    if ([404, 401, 409].includes(error.status)) {
+                        if (error.status === 409) {
+                            const { field, message } = error.response.data;
+
+                            form.setError(field, {
+                                type: "custom",
+                                message: message || "Already in use",
+                            });
+                        } else {
+                            form.setError("password", {
+                                type: "custom",
+                                message: error?.response?.data || "Invalid credentials",
+                            });
+                        }
+
+                        return;
+                    }
                     toast({
                         title: "Error Occurred",
-                        description: "error occurred while processing register request",
+                        description: error.response.data,
                         variant: "destructive"
                     })
                 })
