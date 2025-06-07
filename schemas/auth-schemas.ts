@@ -122,9 +122,15 @@ export const recipeFormSchema = z.object({
     .regex(/^([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-9]{2}|300)$/, {
       message: "Enter a number between 1 and 300",
     }),
-  cuisine: z.string().min(5).max(15),
-    diet: z.string().min(5).max(25)
-
+  cuisine: z.string().min(1, {
+    message: "Cuisine is required",
+  }),
+  diet: z.string().min(1, {
+    message: "Diet is required",
+  }),
+  course: z.string().min(1, {
+    message: "Course is required",
+  })
 });
 
 
@@ -136,3 +142,126 @@ export function validateFields(data: z.infer<typeof schema>, schema: ZodSchema) 
   }
   return result.data;
 }
+
+
+export const courseValues: string[] = [
+  "Appetizer",
+  "Brunch",
+  "Dessert",
+  "Dinner",
+  "Eggetarian",
+  "High Protein Vegetarian",
+  "Indian Breakfast",
+  "Lunch",
+  "Main Course",
+  "No Onion No Garlic (Sattvic)",
+  "Non Vegeterian",
+  "North Indian Breakfast",
+  "One Pot Dish",
+  "Side Dish",
+  "Snack",
+  "South Indian Breakfast",
+  "Sugar Free Diet",
+  "Vegan",
+  "Vegetarian",
+  "World Breakfast"
+];
+
+export const cuisineValues: string[] = [
+  "Afghan",
+  "African",
+  "American",
+  "Andhra",
+  "Appetizer",
+  "Arab",
+  "Asian",
+  "Assamese",
+  "Awadhi",
+  "Bengali Recipes",
+  "Bihari",
+  "British",
+  "Brunch",
+  "Burmese",
+  "Cantonese",
+  "Caribbean",
+  "Chettinad",
+  "Chinese",
+  "Coastal Karnataka",
+  "Continental",
+  "Coorg",
+  "Dessert",
+  "Dinner",
+  "European",
+  "French",
+  "Fusion",
+  "Goan Recipes",
+  "Greek",
+  "Gujarati Recipes",
+  "Haryana",
+  "Himachal",
+  "Hunan",
+  "Hyderabadi",
+  "Indian",
+  "Indo Chinese",
+  "Indonesian",
+  "Italian Recipes",
+  "Japanese",
+  "Jewish",
+  "Jharkhand",
+  "Karnataka",
+  "Kashmiri",
+  "Kerala Recipes",
+  "Kongunadu",
+  "Konkan",
+  "Korean",
+  "Lucknowi",
+  "Lunch",
+  "Maharashtrian Recipes",
+  "Malabar",
+  "Malaysian",
+  "Malvani",
+  "Mangalorean",
+  "Mediterranean",
+  "Mexican",
+  "Middle Eastern",
+  "Mughlai",
+  "Nagaland",
+  "Nepalese",
+  "North East India Recipes",
+  "North Indian Recipes",
+  "North Karnataka",
+  "Oriya Recipes",
+  "Pakistani",
+  "Parsi Recipes",
+  "Punjabi",
+  "Rajasthani",
+  "Shandong",
+  "Sichuan",
+  "Side Dish",
+  "Sindhi",
+  "Snack",
+  "South Indian Recipes",
+  "South Karnataka",
+  "Sri Lankan",
+  "Tamil Nadu",
+  "Thai",
+  "Udupi",
+  "Uttar Pradesh",
+  "Uttarakhand-North Kumaon",
+  "Vietnamese",
+  "World Breakfast"
+];
+
+export const dietValues: string[] = [
+  "Diabetic Friendly",
+  "Eggetarian",
+  "Gluten Free",
+  "High Protein Non Vegetarian",
+  "High Protein Vegetarian",
+  "No Onion No Garlic (Sattvic)",
+  "Non Vegeterian",
+  "Sugar Free Diet",
+  "Vegan",
+  "Vegetarian"
+];
+

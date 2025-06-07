@@ -5,19 +5,25 @@ import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/
 import { useSuspenseQuery } from '@tanstack/react-query'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import Image from 'next/image'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { use } from 'react'
 
 interface CategoryProps {
-    searchParams: {
-        query?: string
-    }
+    searchParams: Promise<{ query?: string }>
 }
 
 
 export default function CategoryPage({ searchParams }: CategoryProps) {
+    const router = useRouter()
+    const params = use(searchParams) // ✅ unwrap the promise
+    const query = params?.query
+    if (!query) {
+        router.push("/")
+    }
+
     return (
         <React.Suspense fallback={<h2>Loading Data...</h2>}>
-            <RecipeByCategory searchQuery={searchParams.query!} />
+            <RecipeByCategory searchQuery={query!} />
         </React.Suspense>
     )
 }

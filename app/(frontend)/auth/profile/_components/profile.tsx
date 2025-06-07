@@ -39,7 +39,7 @@ export default function ProfileComponent({ user }: ProfileComponentProps) {
         <section>
             <div className="text-center">
                 <h1 className="text-2xl font-extrabold  text-neutral-800 dark:text-neutral-50 sm:text-5xl md:text-6xl">User Profile</h1>
-                <p className="mt-3 text-xl text-neutral-600 sm:mt-5">View your information and past crop recommendations</p>
+                <p className="mt-3 text-xl text-neutral-600 sm:mt-5">View your information and past recommendations</p>
             </div>
             {(data || data !== null || data !== undefined) &&
                 <Card className="w-full bg-white dark:bg-neutral-800 shadow-lg rounded-lg overflow-hidden">

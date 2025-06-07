@@ -3,6 +3,7 @@ import React from 'react'
 import { SessionProvider } from "@/context/session"; // Import Context
 import Sidebar from '@/components/auth-sidebar';
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { redirect } from 'next/navigation'
 
 interface AuthLayoutProps {
     children: React.ReactNode
@@ -10,6 +11,9 @@ interface AuthLayoutProps {
 
 export default async function AuthLayout({ children }: AuthLayoutProps) {
     const session = await auth()
+    if(!session || !session.user){
+        redirect("/guest/Login")
+    }
     return (
         <SidebarProvider>
             <SessionProvider session={session}>

@@ -6,26 +6,27 @@ import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Clock, Users } from 'lucide-react';
+import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React from 'react'
-import { BarLoader, BeatLoader, RotateLoader } from 'react-spinners';
-
-
-interface FetchRecipesProps {
-  params: { Id: string };
-}
+import { BeatLoader } from 'react-spinners';
 
 
 
-export default function FetchRecipes({ params }: FetchRecipesProps) {
-
-
+export default function FetchRecipes() {
+  const router = useRouter()
+  const params = useParams()
+  const { Id } = params
+  if(!Id){
+    router.push('/auth/dashboard')
+  }
   async function fetchRecipeDetails(id: string) {
     return await axios.get(`/api/fetch-recipe-details?id=${id}`)
   }
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['data', params.Id],
-    queryFn: () => fetchRecipeDetails(params.Id),
-    enabled: !!params.Id, // avoid running query on undefined
+    queryKey: ['data', Id],
+    queryFn: () => fetchRecipeDetails(Id as string),
+    enabled: !!Id, // avoid running query on undefined
 
   });
 
@@ -46,7 +47,9 @@ export default function FetchRecipes({ params }: FetchRecipesProps) {
       </div>
     )
   }
+
   const ingredients = data.data.recipe.ingredients.split(",");
+  const instructions = data.data.recipe.instructions.trim().split(",");
   return (
     <section >
       <div className='mx-auto bg-neutral-100 md:max-w-[50rem] p-5 mt-[10dvh] rounded-sm'>
@@ -80,16 +83,29 @@ export default function FetchRecipes({ params }: FetchRecipesProps) {
           {/* Ingredients */}
 
           <Card className="max-w-xl mx-auto my-6 rounded-2xl shadow-lg">
-            <CardContent className="p-4">
-              <h2 className="text-xl font-semibold mb-4">Ingredients</h2>
-              <ScrollArea className="h-64 pr-2">
-                <ol className=" list-decimal  list-inside space-y-2 text-sm text-gray-700">
-                  {
-                    ingredients.map((item: string, index: number) => (
-                      <li key={index}> {item}</li>
-                    ))}
-                </ol>
-              </ScrollArea>
+            <CardContent className="p-4  bg-neutral-100 ">
+              <div className=' bg-white p-4 rounded-md m-2 '>
+                <h2 className="text-xl font-semibold mb-4">Ingredients</h2>
+                <ScrollArea className="h-64 pr-2">
+                  <ol className=" list-decimal  list-inside space-y-2 text-sm text-gray-700">
+                    {
+                      ingredients.map((item: string, index: number) => (
+                        <li key={index}> {item}</li>
+                      ))}
+                  </ol>
+                </ScrollArea>
+              </div>
+              <div className=' bg-white p-4 rounded-md m-2 '>
+                <h2 className="text-xl font-semibold mb-4">Ingredients</h2>
+                <ScrollArea className="h-64 pr-2">
+                  <ol className=" list-decimal  list-inside space-y-2 text-sm text-gray-700">
+                    {
+                      instructions.map((item: string, index: number) => (
+                        <li key={index}> {item}</li>
+                      ))}
+                  </ol>
+                </ScrollArea>
+              </div>
             </CardContent>
           </Card>
         </div>

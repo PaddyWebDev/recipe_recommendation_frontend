@@ -12,17 +12,17 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { IngredientInputField } from './IngredientInputField';
-import { recipeFormSchema, validateFields } from '@/schemas/auth-schemas';
+import { courseValues, cuisineValues, dietValues, recipeFormSchema, validateFields } from '@/schemas/auth-schemas';
 import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import axios from 'axios';
 import Results, { ResultsProps } from './Results';
+import { useSession } from 'next-auth/react';
 
 
 export default function RecipeRecommendationForm() {
-    const dietValues: Array<string> = ["Vegetarian", "Non Vegetarian"]
-    const cuisineValues: Array<string> = ["Italian", "Indian"]
+    const { data: session, status } = useSession()
     const { toast } = useToast()
     const [isPending, startTransition] = useTransition()
     type RecipeFormSchema = z.infer<typeof recipeFormSchema>;
@@ -35,9 +35,16 @@ export default function RecipeRecommendationForm() {
             Ingredients: [],
             cooking_time: "",
             cuisine: "",
-            diet: ""
+            diet: "",
+            course: ""
         },
     });
+
+
+    async function sendRecommendationData(data: ResultsProps["results"]): Promise<void> {
+        const response = await axios.post(`/api/recommendation-result?userId=${session?.user.id}`, data);
+        console.log(response.data)
+    }
 
     async function onSubmit(data: RecipeFormSchema): Promise<void> {
         startTransition(async function () {
@@ -65,7 +72,7 @@ export default function RecipeRecommendationForm() {
                     }
                 });
                 setData(response.data.Success.prediction)
-
+                sendRecommendationData(response.data.Success.prediction)
                 console.log(response);
             } catch (error) {
                 console.log(error)
@@ -168,7 +175,42 @@ export default function RecipeRecommendationForm() {
                         />
                     </div>
 
-                    <Button type="submit">Submit</Button>
+                    <div>
+                        <FormField
+                            control={form.control}
+                            name="course"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Diet</FormLabel>
+                                    <FormControl>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isPending}
+                                            {...field}>
+                                            <SelectTrigger className="bg-neutral-50 border-neutral-300">
+                                                <SelectValue placeholder="Select your Diet" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectLabel>Diet</SelectLabel>
+                                                    {
+                                                        courseValues.map((diet: string, index: number) => (
+                                                            <SelectItem key={index} value={diet}>
+                                                                {diet}
+                                                            </SelectItem>
+                                                        ))
+                                                    }
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+
+                    <Button type="submit" disabled={isPending}>
+                        {isPending ? 'Submitting...' : "Submit"}
+                    </Button>
                 </form>
             </Form>
 
@@ -183,6 +225,6 @@ export default function RecipeRecommendationForm() {
 
                 )
             }
-            </div>
+        </div>
     )
 }

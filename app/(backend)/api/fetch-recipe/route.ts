@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
                 status: 400
             })
 
-        const data = await prisma.recipe.findMany({
+        const data = await prisma?.recipe.findMany({
             where: {
                 name: {
                     contains: query,

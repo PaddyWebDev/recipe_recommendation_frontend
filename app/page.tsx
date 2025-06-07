@@ -31,7 +31,7 @@ export default function Home() {
             Discover recipes tailored to your taste and preferences
           </p>
 
-          <SearchForm />
+          {/* <SearchForm /> */}
         </div>
       </div>
 
@@ -59,7 +59,7 @@ export default function Home() {
         </section>
 
         {/* Recommended Section */}
-        <section className="mb-12 md:mb-16">
+        {/* <section className="mb-12 md:mb-16">
           <div className="flex items-center justify-between mb-6 md:mb-8">
             <h2 className="text-2xl md:text-3xl font-bold">Recommended For You</h2>
             <Link href="/recommendations" className="text-primary hover:underline flex items-center gap-1 group">
@@ -73,7 +73,7 @@ export default function Home() {
               <RecipeCard key={recipe.id} recipe={recipe} />
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Explore Recipes Section */}
         <section className="mb-12 md:mb-16 bg-muted/30 py-6 md:py-10 px-4 md:px-6 rounded-2xl">

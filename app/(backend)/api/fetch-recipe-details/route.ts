@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+
 export async function GET(request: NextRequest) {
     try {
         const id = request.nextUrl.searchParams.get("id")
@@ -9,7 +10,7 @@ export async function GET(request: NextRequest) {
             })
         }
 
-        const recipe = await prisma.recipe.findUnique({
+        const recipe = await prisma?.recipe.findUnique({
             where: {
                 id: id
             }

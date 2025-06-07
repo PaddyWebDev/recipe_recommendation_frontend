@@ -5,7 +5,6 @@ import ToastProvider from "@/providers/toast-provider";
 import { SessionProvider } from "next-auth/react"
 import { QueryClientProvider } from "@tanstack/react-query";
 import queryClient from "@/lib/queryClient";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 const font = Poppins({ subsets: ["latin"], weight: "400" });
 
@@ -21,7 +20,7 @@ export default function RootLayout({
   params: { locale: string };
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={font.className}>
           <SessionProvider>
             <QueryClientProvider client={queryClient}>

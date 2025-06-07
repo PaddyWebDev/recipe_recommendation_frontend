@@ -13,17 +13,18 @@ import { authUpdatePasswordSchema, validateFields } from "@/schemas/auth-schemas
 import { z } from "zod"
 import axios from 'axios'
 import { ArrowLeftCircle } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
-interface UpdatePasswordProps {
-    params: {
-        Id: string
-    }
-}
 
-export default function UpdatePassword({ params }: UpdatePasswordProps) {
+export default function UpdatePassword() {
+
     const router = useRouter()
     const { toast } = useToast()
+    const params = useParams()
+    const { Id } = params
+    if (!Id) {
+        router.push('/auth/dashboard')
+    }
     const [isPending, startTransition] = useTransition()
     const [passwordState, setPasswordState] = useState<boolean>(false)
     const updatePasswordForm = useForm<z.infer<typeof authUpdatePasswordSchema>>({
@@ -48,7 +49,7 @@ export default function UpdatePassword({ params }: UpdatePasswordProps) {
                 })
                 return
             }
-            await axios.patch(`/api/update-password?userId=${params.Id}`, {
+            await axios.patch(`/api/update-password?userId=${Id}`, {
                 oldPassword: validatedData.existingPassword,
                 password: validatedData.password
             }).then((data) => {

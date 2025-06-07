@@ -7,13 +7,11 @@ import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Clock, Users } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
 import React from 'react'
 import { BeatLoader } from 'react-spinners';
 
 
-interface FetchRecipesProps {
-    params: { Id: string };
-}
 
 
 async function fetchRecipeDetails(id: string) {
@@ -28,11 +26,17 @@ async function fetchRecipeDetails(id: string) {
     }
 }
 
-export default function FetchRecipe({ params }: FetchRecipesProps) {
+export default function FetchRecipe() {
+    const router = useRouter()
+      const params = useParams()
+      const { Id } = params
+      if(!Id){
+        router.push('/auth/dashboard')
+      }
     const { data, isLoading, isError } = useQuery({
-        queryKey: ["recipe", params.Id],
-        queryFn: () => fetchRecipeDetails(params.Id),
-        enabled: !!params.Id, // don't run query if Id is undefined
+        queryKey: ["recipe", Id],
+        queryFn: () => fetchRecipeDetails(Id as string),
+        enabled: !!Id, // don't run query if Id is undefined
     });
     if (isLoading) {
         return (

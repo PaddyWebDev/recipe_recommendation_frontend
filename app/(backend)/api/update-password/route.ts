@@ -32,7 +32,7 @@ export async function PATCH(req: NextRequest) {
             return new NextResponse("Incorrect current password", { status: 400 });
         }
 
-        await prisma.user.update({
+        await prisma?.user.update({
             data: {
                 password: await bcrypt.hash(password, 11)
             },
