@@ -39,8 +39,6 @@ export default function UpdatePassword() {
     async function handlePasswordUpdate(values: z.infer<typeof authUpdatePasswordSchema>) {
         startTransition(async () => {
             const validatedData = validateFields(values, authUpdatePasswordSchema)
-            console.log(validatedData)
-
 
             if (validatedData.password !== validatedData.confirmPassword) {
                 updatePasswordForm.setError("confirmPassword", {
@@ -55,28 +53,28 @@ export default function UpdatePassword() {
             }).then((data) => {
                 toast({
                     title: "Success",
-                    description: "user updated successfully",
+                    description: data.data ?? "user updated successfully",
                     variant: "success"
                 })
                 updatePasswordForm.reset()
             }).catch((error) => {
                 toast({
                     title: "Error Encountered",
-                    description: "error occured while processing the request",
+                    description: error.response.data ?? "error occurred while processing the request",
                     variant: "destructive"
                 })
             })
         })
     }
     return (
-        <section className="dark:bg-zinc-800 rounded-lg mx-auto w-full md:max-w-[30rem] mt-[10dvh] p-5 sm:p-6 md:p-8 space-y-8 shadow-2xl shadow-gray-500/50">
+        <section className="dark:bg-zinc-800 rounded-lg mx-auto w-11/12 md:max-w-[30rem] mt-[15dvh] p-5 sm:p-6 md:p-8 space-y-8 shadow-2xl shadow-neutral-500/50 dark:shadow-neutral-800/70 ">
 
             <header className='flex flex-col'>
-                <div className='flex flex-row  items-center '>
+                <div className='flex flex-row  items-center flex-wrap '>
                     <Button onClick={() => router.push("/auth/profile")} className=' rounded-full ' variant={'ghost'} >
                         <ArrowLeftCircle />
                     </Button>
-                    <h1 className='text-center text-3xl font-semibold mb-3 mt-4 '>Reset your password </h1>
+                    <h1 className='text-center text-3xl font-semibold mb-3 mt-4'>Reset your password </h1>
                 </div>
                 <p className='text-base font-light text-center'>Below enter your new password</p>
             </header>

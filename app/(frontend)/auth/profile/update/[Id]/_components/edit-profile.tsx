@@ -53,7 +53,6 @@ export default function RenderUpdateProfileComponent({ userDetails, userId }: Up
                 validatedFields.name === userDetails.name &&
                 validatedFields.gender === userDetails.gender
 
-            console.log(noChanges)
 
             if (noChanges) {
                 form.setError("email", {
@@ -102,7 +101,7 @@ export default function RenderUpdateProfileComponent({ userDetails, userId }: Up
     }
 
     return (
-        <div className="w-full max-w-2xl mx-auto mt-[12dvh] shadow-lg p-4 rounded-md bg-neutral-100 dark:bg-neutral-800 border border-neutral-300">
+        <div className="w-11/12 max-w-2xl mx-auto mt-[12dvh] shadow-lg p-4 rounded-md bg-neutral-100 dark:bg-neutral-800 border ">
             <header>
                
                 <div className="flex items-center justify-start">
@@ -133,7 +132,7 @@ export default function RenderUpdateProfileComponent({ userDetails, userId }: Up
                             </FormItem>
                         )}
                     />
-                    <div className="grid md:grid-cols-2 grid-cols-1 gap-2 ">
+                    <div className="grid md:grid-cols-2 grid-cols-1 gap-2">
                         <FormField
                             control={form.control}
                             name="email"
@@ -155,14 +154,14 @@ export default function RenderUpdateProfileComponent({ userDetails, userId }: Up
                             control={form.control}
                             name="phoneNumber"
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className="sm:mt-0 mt-4">
                                     <FormLabel className='flex items-center justify-between'>
                                         <h3>
                                             Phone Number
                                         </h3>
                                     </FormLabel>
                                     <FormControl>
-                                        <Input disabled={isPending} placeholder="1234567890" type="text" {...field} />
+                                        <Input disabled={isPending} placeholder="1234567890"  type="text" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

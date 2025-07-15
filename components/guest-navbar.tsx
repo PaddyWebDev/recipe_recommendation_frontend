@@ -2,8 +2,9 @@
 import React from 'react'
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
-import {  Menu } from "lucide-react"
+import { Menu } from "lucide-react"
 import Link from 'next/link'
+import ThemeSwitcher from './theme-switcher'
 
 type NavLink = {
     name: string;
@@ -62,6 +63,8 @@ export default function GuestNavbar() {
                                     </Link>
                                 ))
                             }
+
+                            <ThemeSwitcher />
                         </nav>
 
                         <Sheet >
@@ -86,6 +89,7 @@ export default function GuestNavbar() {
                                             </Link>
                                         ))
                                     }
+                                    <ThemeSwitcher />
                                 </nav>
                             </SheetContent>
                         </Sheet>

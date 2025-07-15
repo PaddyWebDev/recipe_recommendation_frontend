@@ -17,7 +17,7 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
     return (
         <SidebarProvider>
             <SessionProvider session={session}>
-                <main className='w-full'>
+                <main className='w-full h-screen dark:bg-neutral-950'>
                     <aside className="md:w-64">
                         <Sidebar userId={session?.user.id!} userName={session?.user.name!} />
                     </aside>

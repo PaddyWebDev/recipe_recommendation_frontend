@@ -31,13 +31,13 @@ export default function Sidebar({ userId, userName }: SidebarProps) {
   ]
 
   return (
-    <ShadCNSidebar variant="inset" collapsible="offcanvas" className="min-h-screen bg-neutral-100 dark:bg-neutral-900 shadow-lg rounded-r-lg">
+    <ShadCNSidebar variant="inset" collapsible="offcanvas" className="min-h-screen bg-neutral-100 dark:bg-neutral-800 shadow-lg rounded-r-lg">
       <SidebarHeader className="border-b border-neutral-200 dark:border-neutral-700 px-4 py-3 ">
         <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Flavor Finder</h2>
       </SidebarHeader>
-      <SidebarContent className="px-4 py-6 overflow-y-auto max-h-full">
+      <SidebarContent className="px-1 py-6 overflow-y-auto max-h-full">
         <SidebarGroup>
-          <nav className="flex flex-col space-y-3 ">
+          <nav className="flex flex-col space-y-3 bg-neutral-100 dark:bg-neutral-950 px-2 py-2 rounded-xl shadow-md">
             {links.map((link, id) => (
               <Link
                 key={id}
@@ -45,8 +45,8 @@ export default function Sidebar({ userId, userName }: SidebarProps) {
                 className={cn(
                   "px-3 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition-colors",
                   pathname === link.href
-                    ? "bg-neutral-200 dark:bg-neutral-700 font-semibold text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                    ? "bg-neutral-200 dark:bg-neutral-800 font-semibold text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800"
                 )}
               >
                 <span>
@@ -97,7 +97,7 @@ export default function Sidebar({ userId, userName }: SidebarProps) {
       </SidebarContent>
       <SidebarFooter>
 
-        <div className="flex items-center justify-between bg-white py-2 rounded-md shadow-md ">
+        <div className="flex items-center justify-around bg-neutral-100 dark:bg-neutral-950 py-2 rounded-md ">
           <Link className={cn(
             "px-3 py-2 rounded-md flex items-center gap-2 ml-3 text-sm font-medium transition-colors",
             pathname === "/auth/profile"

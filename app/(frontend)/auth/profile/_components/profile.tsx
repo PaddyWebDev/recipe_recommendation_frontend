@@ -1,13 +1,12 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { fetchUserDetails } from "@/hooks/user-hooks"
-import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 import { User } from "next-auth"
+import { BeatLoader } from "react-spinners"
 
 
 interface ProfileComponentProps {
@@ -24,11 +23,17 @@ export default function ProfileComponent({ user }: ProfileComponentProps) {
         retry: 2, // Retry failed requests up to 2 times
     });
 
+   
 
 
-    if (isLoading) return (
-        <div className="w-full text-center h-full">Loading...</div>
-    )
+    if (isLoading ) {
+        return (
+            <div className='flex items-center justify-center mt-[25dvh] dark:bg-neutral-500/60 mx-auto p-10 w-[6rem]  rounded-full '>
+                <BeatLoader  />
+            </div>
+        )
+    }
+
     if (error) return <div className="text-red-500">Error fetching user details.</div>;
 
     if (!data) {

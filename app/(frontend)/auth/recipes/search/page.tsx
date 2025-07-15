@@ -63,8 +63,8 @@ export default function RecipeSearchPage() {
 
   return (
     <section className="">
-      <div className='md:max-w-[50rem]  bg-neutral-100 shadow-md md:mt-[15dvh] mt-[5dvh] mx-auto flex flex-col items-center p-6 '>
-        <h1 className="text-4xl font-bold text-gray-800 mb-8">Recipe Search</h1>
+      <div className='md:max-w-[40rem] rounded-xl  bg-neutral-100/70 dark:bg-neutral-800 shadow-md md:mt-[15dvh] mt-[5dvh] mx-auto flex flex-col items-center p-6 '>
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-neutral-50 mb-8">Recipe Search</h1>
 
         <Form {...form}>
           <form

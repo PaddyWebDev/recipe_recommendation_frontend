@@ -63,7 +63,6 @@ export default function RecipeRecommendationForm() {
                     diet: validatedInput.diet
                 };
 
-                console.log(payload);
 
                 const response = await axios.post(`${process.env.NEXT_PUBLIC_ML_MODEL_URL}/predict`, payload, {
                     headers: {
@@ -80,7 +79,7 @@ export default function RecipeRecommendationForm() {
         })
     }
     return (
-        <div className="mx-auto bg-neutral-100 p-5 max-w-[60rem] shadow-md rounded-md">
+        <div className="mx-auto  p-5 max-w-[60rem] shadow-md ">
             <h1 className="text-2xl text-center my-4 font-extrabold text-neutral-800 dark:text-neutral-50 ">
                 Recipe Recommendation System
             </h1>

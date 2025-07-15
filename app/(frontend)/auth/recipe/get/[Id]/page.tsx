@@ -7,6 +7,7 @@ import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Clock, Users } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { useParams, useRouter } from 'next/navigation';
 import React from 'react'
 import { BeatLoader } from 'react-spinners';
@@ -28,11 +29,12 @@ async function fetchRecipeDetails(id: string) {
 
 export default function FetchRecipe() {
     const router = useRouter()
-      const params = useParams()
-      const { Id } = params
-      if(!Id){
+    const params = useParams()
+  
+    const { Id } = params
+    if (!Id) {
         router.push('/auth/dashboard')
-      }
+    }
     const { data, isLoading, isError } = useQuery({
         queryKey: ["recipe", Id],
         queryFn: () => fetchRecipeDetails(Id as string),
@@ -40,8 +42,10 @@ export default function FetchRecipe() {
     });
     if (isLoading) {
         return (
-            <div className='min-h-screen flex items-center justify-center  '>
-                <BeatLoader />
+            <div className='min-h-screen flex items-center justify-center dark:bg-neutral-600/30  '>
+                <BeatLoader
+                    color={""}
+                />
             </div>
         )
     }
@@ -49,7 +53,7 @@ export default function FetchRecipe() {
     if (isError || !data) {
         return (
             <div className='min-h-screen flex items-center justify-center'>
-                <div className="flex flex-row text-red-500 bg-neutral-100 items-center gap-2 px-5 py-3 shadow-md text-2xl" >
+                <div className="flex flex-row text-red-500 bg-neutral-100 dark:bg-neutral-800 rounded-lg items-center gap-2 px-5 py-3 shadow-md text-2xl" >
                     Error Occurred <ExclamationTriangleIcon className=' h-6 w-6' />
                 </div>
             </div>
@@ -60,7 +64,7 @@ export default function FetchRecipe() {
     const instructions = data.TranslatedInstructions.split(",")
     return (
         <section >
-            <div className='mx-auto bg-neutral-100 md:max-w-[50rem] p-5 mt-[10dvh] rounded-sm'>
+            <div className='mx-auto bg-neutral-100 dark:bg-neutral-800 md:max-w-[50rem] p-5 mt-[10dvh] rounded-sm'>
                 <div className='my-3 flex items-center gap-2' >
                     <Badge className='font-normal'  >
                         {data.Course}
@@ -92,8 +96,8 @@ export default function FetchRecipe() {
                         <CardContent className="p-4  bg-neutral-100 ">
                             <div className=' bg-white p-4 rounded-md m-2 '>
                                 <h2 className="text-xl font-semibold mb-4">Ingredients</h2>
-                                <ScrollArea className="h-64 pr-2 ">
-                                    <ol className=" list-decimal  list-inside space-y-2 text-sm text-gray-700">
+                                <ScrollArea className="h-64 pr-2 dark:bg-neutral-900">
+                                    <ol className=" list-decimal  list-inside space-y-2 text-sm text-neutral-700 dark:text-neutral-100 px-3 py-2">
                                         {
                                             ingredients.map((item: string, index: number) => (
                                                 <li key={index}> {item}</li>
@@ -101,10 +105,10 @@ export default function FetchRecipe() {
                                     </ol>
                                 </ScrollArea>
                             </div>
-                            <div className=' bg-white p-4 rounded-md m-2 '>
+                            <div className=' bg-neutral-100 dark:bg-neutral-800 p-4 rounded-md m-2 '>
                                 <h2 className="text-xl font-semibold mb-4">Instructions</h2>
-                                <ScrollArea className="h-64 pr-2">
-                                    <ol className=" list-decimal  list-inside space-y-2 text-sm text-gray-700">
+                                <ScrollArea className="h-64 pr-2 dark:bg-neutral-900">
+                                    <ol className=" list-decimal  list-inside space-y-2 text-sm text-neutral-700 dark:text-neutral-100 px-3 py-2">
                                         {
                                             instructions.map((item: string, index: number) => (
                                                 <li key={index}> {item}</li>
