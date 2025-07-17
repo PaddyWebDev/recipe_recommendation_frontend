@@ -7,7 +7,7 @@ import { SidebarContent, SidebarHeader, Sidebar as ShadCNSidebar, SidebarGroup, 
 import { cn } from "@/lib/utils"
 import { Button } from "./ui/button"
 import SignOutUser from "@/hooks/user-hooks"
-import { Home, LogOut, LucideIcon, Search, User, UserCog, UserPen } from "lucide-react"
+import { Home, Lightbulb, LogOut, LucideIcon, Search, User, UserCog, UserPen } from "lucide-react"
 
 interface SidebarProps {
   userId: string
@@ -37,7 +37,7 @@ export default function Sidebar({ userId, userName }: SidebarProps) {
       </SidebarHeader>
       <SidebarContent className="px-1 py-6 overflow-y-auto max-h-full">
         <SidebarGroup>
-          <nav className="flex flex-col space-y-3 bg-neutral-100 dark:bg-neutral-950 px-2 py-2 rounded-xl shadow-md">
+          <nav className="flex flex-col space-y-3 bg-neutral-100 dark:bg-neutral-800 px-2 py-2 rounded-xl shadow-md">
             {links.map((link, id) => (
               <Link
                 key={id}
@@ -45,8 +45,8 @@ export default function Sidebar({ userId, userName }: SidebarProps) {
                 className={cn(
                   "px-3 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition-colors",
                   pathname === link.href
-                    ? "bg-neutral-200 dark:bg-neutral-800 font-semibold text-neutral-900 dark:text-neutral-100"
-                    : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800"
+                    ? "bg-neutral-200 dark:bg-neutral-700 font-semibold text-neutral-900 dark:text-neutral-100"
+                    : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
                 )}
               >
                 <span>
@@ -88,6 +88,20 @@ export default function Sidebar({ userId, userName }: SidebarProps) {
                     </span>
                     Update Password
                   </Link>
+                  <Link
+                    href={`/auth/profile/view-recommendations`}
+                    className={cn(
+                      "px-3 py-2 rounded-md flex items-center gap-2 text-sm font-medium transition-colors",
+                      pathname === `/auth/profile/update-password/${userId}`
+                        ? "bg-neutral-200 dark:bg-neutral-700 font-semibold text-neutral-900 dark:text-neutral-100"
+                        : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                    )}
+                  >
+                    <span>
+                     <Lightbulb />
+                    </span>
+                    View Recommendations
+                  </Link>
                 </>
               ) : ""
             }
@@ -97,7 +111,7 @@ export default function Sidebar({ userId, userName }: SidebarProps) {
       </SidebarContent>
       <SidebarFooter>
 
-        <div className="flex items-center justify-around bg-neutral-100 dark:bg-neutral-950 py-2 rounded-md ">
+        <div className="flex items-center justify-around bg-neutral-100 shadow-md  dark:bg-neutral-800 py-2 rounded-md ">
           <Link className={cn(
             "px-3 py-2 rounded-md flex items-center gap-2 ml-3 text-sm font-medium transition-colors",
             pathname === "/auth/profile"
@@ -109,7 +123,7 @@ export default function Sidebar({ userId, userName }: SidebarProps) {
             </span>
             {userName.split(" ")[0]}
           </Link>
-          <Button title="Sign Out" variant={"ghost"} className="flex mr-3 items-center justify-start gap-2" onClick={() => SignOutUser()}>
+          <Button title="Sign Out" variant={"ghost"} className="flex mr-3 items-center justify-start gap-2 dark:hover:bg-neutral-700" onClick={() => SignOutUser()}>
             <LogOut />
           </Button>
         </div>

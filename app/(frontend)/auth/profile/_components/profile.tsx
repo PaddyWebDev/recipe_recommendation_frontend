@@ -47,8 +47,8 @@ export default function ProfileComponent({ user }: ProfileComponentProps) {
                 <p className="mt-3 text-xl text-neutral-600 sm:mt-5">View your information and past recommendations</p>
             </div>
             {(data || data !== null || data !== undefined) &&
-                <Card className="w-full bg-white dark:bg-neutral-800 shadow-lg rounded-lg overflow-hidden">
-                    <CardHeader className="p-7 dark:bg-neutral-950 border-b bg-neutral-200   border-neutral-200">
+                <Card className="w-full bg-neutral-100 dark:bg-neutral-800 shadow-lg rounded-lg overflow-hidden dark:shadow-neutral-900">
+                    <CardHeader className="p-7 dark:bg-neutral-900 border-b bg-neutral-200   border-neutral-200">
 
                         <div className="flex items-center space-x-4">
                             <Avatar className="w-20 h-20">

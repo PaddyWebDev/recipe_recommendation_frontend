@@ -265,3 +265,12 @@ export const dietValues: string[] = [
   "Vegetarian"
 ];
 
+export type recipe = {
+  name: string;
+  cookingTime: number;
+  servings: number;
+  cuisine: string;
+  course: string;
+  diet: string;
+  id: number;
+};

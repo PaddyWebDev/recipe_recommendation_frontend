@@ -1,3 +1,5 @@
+import { useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import Link from 'next/link';
 import React from 'react'
 
@@ -9,10 +11,13 @@ type PredictionResult = {
 }
 
 export interface ResultsProps {
-    results: PredictionResult[]
+    results: PredictionResult[],
 }
 
+
+
 export default function Results({ results }: ResultsProps) {
+
 
     if (results.length === 0 || !results) {
         return (

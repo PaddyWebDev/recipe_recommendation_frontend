@@ -59,7 +59,6 @@ export default function FetchRecipe() {
             </div>
         )
     }
-    console.log(data);
     const ingredients = data.TranslatedIngredients.split(",");
     const instructions = data.TranslatedInstructions.split(",")
     return (
@@ -77,7 +76,7 @@ export default function FetchRecipe() {
                     </Badge>
                 </div>
                 <h1 className='text-3xl font-bold'>
-                    {data.TranslatedRecipeName}
+                    {data.TranslatedRecipeName} 
                 </h1>
                 <div className='flex items-center flex-row gap-2 mt-2'>
                     <div className="flex items-center gap-1">
@@ -93,8 +92,8 @@ export default function FetchRecipe() {
 
                 <div>
                     <Card className="max-w-xl mx-auto my-6 rounded-2xl shadow-lg">
-                        <CardContent className="p-4  bg-neutral-100 ">
-                            <div className=' bg-white p-4 rounded-md m-2 '>
+                        <CardContent className="p-4  bg-neutral-100 dark:bg-neutral-900 rounded-md shadow-md     ">
+                            <div className=' bg-neutral-100 dark:bg-neutral-800 p-4 rounded-md m-2 '>
                                 <h2 className="text-xl font-semibold mb-4">Ingredients</h2>
                                 <ScrollArea className="h-64 pr-2 dark:bg-neutral-900">
                                     <ol className=" list-decimal  list-inside space-y-2 text-sm text-neutral-700 dark:text-neutral-100 px-3 py-2">

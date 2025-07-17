@@ -43,7 +43,7 @@ export default function RecipeRecommendationForm() {
 
     async function sendRecommendationData(data: ResultsProps["results"]): Promise<void> {
         const response = await axios.post(`/api/recommendation-result?userId=${session?.user.id}`, data);
-        console.log(response.data)
+        console.log(data);
     }
 
     async function onSubmit(data: RecipeFormSchema): Promise<void> {
@@ -180,20 +180,20 @@ export default function RecipeRecommendationForm() {
                             name="course"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Diet</FormLabel>
+                                    <FormLabel>Course</FormLabel>
                                     <FormControl>
                                         <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isPending}
                                             {...field}>
                                             <SelectTrigger className="bg-neutral-50 border-neutral-300">
-                                                <SelectValue placeholder="Select your Diet" />
+                                                <SelectValue placeholder="Select your Course" />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectGroup>
-                                                    <SelectLabel>Diet</SelectLabel>
+                                                    <SelectLabel>Course</SelectLabel>
                                                     {
-                                                        courseValues.map((diet: string, index: number) => (
-                                                            <SelectItem key={index} value={diet}>
-                                                                {diet}
+                                                        courseValues.map((course: string, index: number) => (
+                                                            <SelectItem key={index} value={course}>
+                                                                {course}
                                                             </SelectItem>
                                                         ))
                                                     }

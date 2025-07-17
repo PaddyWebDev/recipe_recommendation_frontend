@@ -3,6 +3,7 @@
 import { createContext, useContext } from "react";
 import { Session } from "next-auth";
 
+
 interface SessionContextProps {
     session: Session | null;
 }
@@ -14,6 +15,7 @@ export function SessionProvider({ session, children }: { session: Session | null
 };
 
 export function useSessionContext() {
+
     const context = useContext(SessionContext);
     if (!context) throw new Error("useSessionContext must be used within a SessionProvider");
     return context;

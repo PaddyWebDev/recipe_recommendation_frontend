@@ -2,9 +2,9 @@ import db from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 type recipeRecommendation = {
-  id: string;
+  idx: string;
   title: string;
-}
+};
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,15 +16,20 @@ export async function POST(req: NextRequest) {
         status: 400,
       });
     }
-    data.forEach(async data => {
+
+    data.forEach(async (data: recipeRecommendation) => {
       await db.recipeRecommendation.create({
         data: {
-          userId,
           recipeName: data.title,
+          recipeId: parseInt(data.idx),
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
         },
       });
     });
-
 
     return new NextResponse("Success", { status: 200 });
   } catch (error: any) {

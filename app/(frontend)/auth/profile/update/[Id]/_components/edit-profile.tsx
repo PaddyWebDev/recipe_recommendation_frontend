@@ -101,7 +101,7 @@ export default function RenderUpdateProfileComponent({ userDetails, userId }: Up
     }
 
     return (
-        <div className="w-11/12 max-w-2xl mx-auto mt-[12dvh] shadow-lg p-4 rounded-md bg-neutral-100 dark:bg-neutral-800 border ">
+        <section className="w-11/12 max-w-2xl mx-auto md:mt-[20dvh] mt-[15dvh] shadow-lg p-4 rounded-md bg-neutral-100 dark:bg-neutral-800 border ">
             <header>
                
                 <div className="flex items-center justify-start">
@@ -207,6 +207,6 @@ export default function RenderUpdateProfileComponent({ userDetails, userId }: Up
                 </form>
             </Form>
 
-        </div>
+        </section>
     )
 }

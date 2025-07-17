@@ -45,6 +45,7 @@ model RecipeRecommendation {
   recipeName  String
   suggestedAt DateTime @default(now())
   userId      String
+  recipeId    Int
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
